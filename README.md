@@ -20,8 +20,79 @@ Course # | Course Name | Section | Professor
 CS-323 | Compilers and Languages | 03 | Susmitha Padda
 
 ## Results / Screenshots
+### Parsing Table:
+<table>
+  <tr>
+    <th>States</th>
+    <th>a</th>
+    <th>+</th>
+    <th>-</th>
+    <th>*</th>
+    <th>/</th>
+    <th>(</th>
+    <th>)</th>
+    <th>$</th>
+  </tr>
+  <tr>
+    <th>E</th>
+    <td>TQ</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>TQ</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Q</th>
+    <td></td>
+    <td>+TQ</td>
+    <td>-TQ</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>ɛ</td>
+    <td>ɛ</td>
+  </tr>
+  <tr>
+    <th>T</th>
+    <td>FR</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>FR</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th>R</th>
+    <td></td>
+    <td>ɛ</td>
+    <td>ɛ</td>
+    <td>*FR</td>
+    <td>/FR</td>
+    <td></td>
+    <td>ɛ</td>
+    <td>ɛ</td>
+  </tr>
+  <tr>
+    <th>F</th>
+    <td>a</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>(E)</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
 |                                             |
 |:-------------------------------------------:|
+
 |![First String](https://i.imgur.com/oySJeVG.png)|
 |![Second String](https://i.imgur.com/DG70NrI.png)|
 |![Third String](https://i.imgur.com/F5MWXxH.png)|
