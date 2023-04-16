@@ -90,12 +90,9 @@ CS-323 | Compilers and Languages | 03 | Susmitha Padda
   </tr>
 </table>
 
-|                                             |
-|:-------------------------------------------:|
-
-|![First String](https://i.imgur.com/oySJeVG.png)|
-|![Second String](https://i.imgur.com/DG70NrI.png)|
-|![Third String](https://i.imgur.com/F5MWXxH.png)|
+![First String](https://i.imgur.com/oySJeVG.png)
+![Second String](https://i.imgur.com/DG70NrI.png)
+![Third String](https://i.imgur.com/F5MWXxH.png)
 
 ## The Good / The Bad
 ✅ Good! | ❌ Bad :(
