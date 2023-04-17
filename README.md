@@ -90,9 +90,14 @@ CS-323 | Compilers and Languages | 03 | Susmitha Padda
   </tr>
 </table>
 
-| (a+a)*a$ | a*(a/a)$ | a(a+a)$ |
+| (a+a)*$ | ![First String](https://i.imgur.com/bLOgTVp.png)
+| --------- | ------ |
+| a*(a/a)$ | ![Second String](https://i.imgur.com/oY4EBjp.png)
+| a(a+a)$ | ![Third String](https://i.imgur.com/G4brDeN.png)
+
+<!-- | (a+a)*a$ | a*(a/a)$ | a(a+a)$ |
 :----:|:---:|:---:|
-![First String](https://i.imgur.com/bLOgTVp.png) | ![Second String](https://i.imgur.com/oY4EBjp.png) | ![Third String](https://i.imgur.com/G4brDeN.png)
+![First String](https://i.imgur.com/bLOgTVp.png) | ![Second String](https://i.imgur.com/oY4EBjp.png) | ![Third String](https://i.imgur.com/G4brDeN.png) -->
 
 ## The Good / The Bad
 ✅ Good! | ❌ Bad :(
