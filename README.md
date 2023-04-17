@@ -90,10 +90,11 @@ CS-323 | Compilers and Languages | 03 | Susmitha Padda
   </tr>
 </table>
 
-| (a+a)*$ | ![First String](https://i.imgur.com/bLOgTVp.png)
+| User Input | Output |
 | --------- | ------ |
+| (a+a)*a$ | ![First String](https://i.imgur.com/bLOgTVp.png)
 | a*(a/a)$ | ![Second String](https://i.imgur.com/oY4EBjp.png)
-| a(a+a)$ | ![Third String](https://i.imgur.com/auC7JVS.png)
+| a(a+a)$ | ![Third String](https://i.imgur.com/2p5S0kV.png)
 
 ## The Good / The Bad
 ✅ Good! | ❌ Bad :(
