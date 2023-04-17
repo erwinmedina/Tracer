@@ -58,7 +58,7 @@ int main() {
     // Creates variables i'll be using //
     // ------------------------------- //
     bool valid = true;                                  // If string can be passed.
-    // std::string userInput = "*a$";
+    // std::string userInput = "*a$";                      // User input [Good]
     // std::string userInput = "(a+a)$";                   // User input [Good]
     // std::string userInput = "(a+a)*a$";                 // User input [Good]
     // std::string userInput = "a*(a/a)$";                 // User input [Good]
@@ -106,7 +106,7 @@ int main() {
         tProcessIterator = std::find(T.begin(), T.end(), tProcess[0]);
         currentValueIterator = std::find(T.begin(), T.end(), currentValue);
         nonTerminalIterator = std::find(NT.begin(), NT.end(), tProcess[0]);
-        
+
         // ----------------------------------------- //
         // Handles if we reached the end of tProcess //
         // ----------------------------------------- //
@@ -184,7 +184,6 @@ int main() {
             // ------------------------------------------------ //
             else if (parsingTable[nonTerminal_Position][currentValue_Position] == "" && parsingTable[nonTerminal_Position][terminalEpsilon_Position] != "") {
                 tProcess.replace(0,1,parsingTable[nonTerminal_Position][terminalEpsilon_Position]);
-                stackOutput(tProcess);
                 tProcess.erase(tProcess.begin());    
                 stackOutput(tProcess);
             }
