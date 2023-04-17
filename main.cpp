@@ -6,17 +6,22 @@
 // ********************************** //
 // This function prints out the stack //
 // ********************************** //
-void stackOutput(std::vector<char> stack) {
-    std::cout << "Stack = [";
-    for (int i = 0; i < stack.size(); i++) {
-        if (i != stack.size() - 1) {
-            std::cout << "'" << stack[i] << "', ";
-        }
-        else {
-            std::cout << "'" << stack[i] << "'";
-        }
+void stackOutput(std::string stack) {
+    if (stack.length() == 0) {
+        std::cout << "Stack = ['$']" << std::endl;
     }
-    std::cout << "]" << std::endl;
+    else {
+        std::cout << "Stack = ['$', ";
+        for (int i = stack.length()-1; i >= 0; i--) {
+            if (i != 0) {
+                std::cout << "'" << stack[i] << "', ";
+            }
+            else {
+                std::cout << "'" << stack[i] << "'";
+            }
+        }
+        std::cout << "]" << std::endl;
+    }
 }
 
 // ************************* //
@@ -44,17 +49,16 @@ int main() {
     std::vector<char> T = {'a', '+', '-', '*', '/', '(', ')', '$'};
 
     // User input //
-    // std::string userInput;
-    // std::cout << "Please enter a string: ";
-    // std::getline(std::cin, userInput);
-    // std::cout << "Input = " << userInput << std::endl;
+    std::string userInput;
+    std::cout << "Please enter a string: ";
+    std::getline(std::cin, userInput);
+    std::cout << "Input = " << userInput << std::endl;
 
     // ------------------------------- //
     // Creates variables i'll be using //
     // ------------------------------- //
-    std::vector<char> stack = {'$'};                    // Initiates the stack
     bool valid = true;                                  // If string can be passed.
-    std::string userInput = "*a$";
+    // std::string userInput = "*a$";
     // std::string userInput = "(a+a)$";                   // User input [Good]
     // std::string userInput = "(a+a)*a$";                 // User input [Good]
     // std::string userInput = "a*(a/a)$";                 // User input [Good]
@@ -87,47 +91,34 @@ int main() {
             std::string firstStack;
             firstStack += NT[x];
             tProcess.append(firstStack);
-            std::cout << "AHHHH ----- " << tProcess << std::endl;
+            stackOutput(tProcess);
             tProcess.erase(tProcess.begin());
             tProcess.append(parsingTable[x][initializerX - T.begin()]);
         }
     }
-    std::cout << "AHHHH ----- " << tProcess << std::endl;
-    // std::cout << "tProcess value = " << tProcess << std::endl;
+    stackOutput(tProcess);
 
     // ***************************************************** //
     // Loop through tProcess until stringHolder == userInput //
     // ***************************************************** //
-    int zero = 0;
     while (true) {
 
-        // std::cout << tProcess[0] << std::endl;
         tProcessIterator = std::find(T.begin(), T.end(), tProcess[0]);
         currentValueIterator = std::find(T.begin(), T.end(), currentValue);
         nonTerminalIterator = std::find(NT.begin(), NT.end(), tProcess[0]);
-
+        
         // ----------------------------------------- //
         // Handles if we reached the end of tProcess //
         // ----------------------------------------- //
         if (tProcess.length() == 0) {
-            std::cout << "AHHHH ----- " << tProcess << std::endl;
             stringHolder += "$";
             if (stringHolder != userInput) {
                 valid = false;
             }
             else {
-                stackOutput(stack);
                 std::cout << "String is accepted and VALID!" << std::endl;
                 return 0;
             }
-        }
-
-        // ------------------------------------------------------ //
-        // 0 represents epsilon. If epsilon, remove from tProcess //
-        // ------------------------------------------------------ //
-        else if (tProcess[0] == '0') {
-            tProcess.erase(tProcess.begin());
-            // std::cout << "AHHHH ----- " << tProcess << std::endl;
         }
         
         // ------------------------------------------ //
@@ -137,12 +128,11 @@ int main() {
 
             // if tProcess is a terminal and its equal to current value, then great //
             if (tProcess[0] == currentValue) {
-                // std::cout << "AHHHH ----- " << tProcess << std::endl;
                 increment += 1;
                 currentValue = userInput[increment];
                 stringHolder += tProcess[0];        // Add it to stringHolder
                 tProcess.erase(tProcess.begin());   // Remove terminal value from tProcess
-                std::cout << "AHHHH ----- " << tProcess << std::endl;
+                stackOutput(tProcess);
             }
             // if tProcess is a terminal and not equal to current value, then string invalid! //
             else {
@@ -154,37 +144,36 @@ int main() {
         // Handles if first value is a non-terminal value //
         // ---------------------------------------------- //
         else {                        
-            // stack.push_back(tProcess[0]);                                   // Meaning tProcess[0] is a non-terminal value
             int nonTerminal_Position = nonTerminalIterator - NT.begin();    // x position [goes first]
             int currentValue_Position = currentValueIterator - T.begin();   // y position [goes second]
             int terminalEpsilon_Position = 7;                               // hard-coded because lazy.
-            // std::cout << "Parsing Table EPSILON Value: " << parsingTable[nonTerminal_Position][terminalEpsilon_Position] << std::endl;
             
             // ------------------------------ //
             // If PT[NT][CurrentValue] exists //
             // ------------------------------ //
 
-            // std::cout << "AHH: " << parsingTable[nonTerminal_Position][currentValue_Position] << std::endl;
-            // std::cout << "AHH: " << nonTerminal_Position << std::endl;
-            // std::cout << "AHH: " << currentValue_Position << std::endl;
             if (parsingTable[nonTerminal_Position][currentValue_Position] != "") {
                 currentValue_string += currentValue; // converts char to string - LAZY
 
                 // If PT[x][y] == currentValue [meaning Terminal matches up] //
                 if (parsingTable[nonTerminal_Position][currentValue_Position] == currentValue_string) {
                     tProcess.replace(0,1,parsingTable[nonTerminal_Position][currentValue_Position]);
-                    std::cout << "AHHHH ----- " << tProcess << std::endl;
+                    stackOutput(tProcess);
                     stringHolder += currentValue;
                     increment += 1;
                     currentValue = userInput[increment];
                     tProcess.erase(tProcess.begin());
-                    std::cout << "AHHHH ----- " << tProcess << std::endl;
+                    stackOutput(tProcess);
+                }
+
+                else if (parsingTable[nonTerminal_Position][currentValue_Position] == "0") {
+                    tProcess.erase(tProcess.begin());
+                    stackOutput(tProcess);
                 }
                 // If we simply find anything but our terminal matching up with currentValue
                 else {
-                    // std::cout << "AHHHH ----- " << tProcess << std::endl;
                     tProcess.replace(0,1,parsingTable[nonTerminal_Position][currentValue_Position]);
-                    std::cout << "AHHHH ----- " << tProcess << std::endl;
+                    stackOutput(tProcess);
                 }
 
                 currentValue_string = ""; // clears out lazy code.
@@ -195,23 +184,22 @@ int main() {
             // ------------------------------------------------ //
             else if (parsingTable[nonTerminal_Position][currentValue_Position] == "" && parsingTable[nonTerminal_Position][terminalEpsilon_Position] != "") {
                 tProcess.replace(0,1,parsingTable[nonTerminal_Position][terminalEpsilon_Position]);
-                std::cout << "AHHHH ----- " << tProcess << std::endl;
+                stackOutput(tProcess);
                 tProcess.erase(tProcess.begin());    
-                std::cout << "AHHHH ----- " << tProcess << std::endl;
+                stackOutput(tProcess);
             }
 
             // --------------------------------------------- //
             // If PT[NT][CurrentValue] DNE and PT[NT][$] DNE //
             // --------------------------------------------- //
             else if (parsingTable[nonTerminal_Position][currentValue_Position] == "" && parsingTable[nonTerminal_Position][terminalEpsilon_Position] == "") {
-                std::cout << "AHHHH ----- " << tProcess << std::endl;
+                stackOutput(tProcess);
                 valid = false;
             }
         }
 
         // If at this point valid = false, then we stop and say its invalid //
         if (valid == false) {
-            stackOutput(stack);
             std::cout << "String is not accepted and INVALID!" << std::endl;
             return 0;
         }
@@ -220,6 +208,5 @@ int main() {
         // std::cout << "String Holder = " << stringHolder << std::endl;
         // std::cout << "tProcess value = " << tProcess << std::endl;
         // std::cout << "--------------------------" << std::endl;
-    zero += 1;
     }
 }
